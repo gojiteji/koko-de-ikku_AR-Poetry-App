@@ -312,7 +312,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 591872535}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02775fb5f96244d4bb41f48f5c55a741, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b4a59dac8c254d21948089a6e3b0f47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &661576968
@@ -793,7 +793,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d5fb5bfa00cf742e8809e5a9e5f71cf9, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f94caa2804f646caa5d9ca7669907de, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -924,7 +924,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -14.799988, y: -153.30005}
+  m_AnchoredPosition: {x: -14.800049, y: -153.30005}
   m_SizeDelta: {x: -149.59998, y: 210.59998}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692380781
