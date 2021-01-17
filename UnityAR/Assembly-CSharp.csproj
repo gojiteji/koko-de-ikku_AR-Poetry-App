@@ -55,6 +55,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\paint.cs" />
      <Compile Include="Assets\Scripts\Title.cs" />
  <Reference Include="Unity.Timeline.Editor">
  <HintPath>/Users/gojiteji/Desktop/UnityAR/UnityAR/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
