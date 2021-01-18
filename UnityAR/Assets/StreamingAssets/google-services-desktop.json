@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "9364130202",
+    "project_id": "one-phrase",
+    "storage_bucket": "one-phrase.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:9364130202:android:2bb1f74a65c10633ed9223",
+        "android_client_info": {
+          "package_name": "com.scsk_co_creation.kokode_ikku"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "9364130202-3hl621b159v5vu7prb97b9kflu67crfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANfHRSbIuzN-JB2VUa5FJUlApzbNs8DMs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "9364130202-3hl621b159v5vu7prb97b9kflu67crfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
