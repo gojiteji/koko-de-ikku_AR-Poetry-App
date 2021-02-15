@@ -464,7 +464,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   haiku: {fileID: 4419691314270036775, guid: cb8badea3daa74aa9b151e6693847266, type: 3}
-  targetText: {fileID: 464391365}
 --- !u!1 &464391363
 GameObject:
   m_ObjectHideFlags: 0
@@ -482,7 +481,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &464391364
 RectTransform:
   m_ObjectHideFlags: 0
