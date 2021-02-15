@@ -33,7 +33,7 @@ public class next : MonoBehaviour
      private bool takeHiResShot = false;
  
      public static string ScreenShotName(int width, int height,int num) {
-         return Application.persistentDataPath +"/"+num.ToString()+".png";
+         return Application.persistentDataPath +"/"+num.ToString()+".jpg";
          //return Application.dataPath+"/Photos/"+num.ToString()+".png";
          //return string.Format("{0}/screenshots/screen_{1}x{2}_{3}.png", 
          //                     Application.dataPath, 
