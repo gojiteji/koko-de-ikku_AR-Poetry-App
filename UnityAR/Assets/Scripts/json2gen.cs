@@ -15,7 +15,7 @@ public class json2gen : MonoBehaviour
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    public Text targetText;
+    //public Text targetText;
 
     private void Awake()
     {
@@ -27,20 +27,6 @@ public class json2gen : MonoBehaviour
     {
 
 
-    var JsonStringList = new List<string>(){
-                            "{\"image\":\"https://i.pinimg.com/originals/66/15/85/66158514b3b1b1c9769f3bc0938fcd2c.jpg\",\"lat\":43.087655,\"lng\":141.349499,\"height\":1.0,}",
-                            "{\"image\":\"https://livedoor.blogimg.jp/mac_cafe/imgs/8/f/8f6435dd.jpg\",\"lat\":43.077655,\"lng\":141.349499,\"height\":1.0,}",
-                            "{\"image\":\"https://cdn-ak.f.st-hatena.com/images/fotolife/m/mochiyu7uta/20201004/20201004085738.jpg\",\"lat\":43.067655,\"lng\":141.349499,\"height\":1.0,}"
-                                };
-    GenerateObjects(JsonStringList);
-        for (int i = 0; i < JsonStringList.Count; i++)
-        {
-            var jsonDic = Json.Deserialize(JsonStringList[i]) as Dictionary<string, object>;
-            var scale=100;
-            GameObject go = Instantiate(haiku, new Vector3(((float)43.078269999999996- float.Parse(jsonDic["lat"].ToString()))*scale, 0,((float)141.3511359- float.Parse(jsonDic["lng"].ToString()))*scale ), Quaternion.identity) as GameObject;
-            go.name = i.ToString();
-            StartCoroutine(GetTexture(jsonDic["image"].ToString(),go));
-        }
     StartCoroutine(updateMap());
     
     }
@@ -84,7 +70,23 @@ public class json2gen : MonoBehaviour
                                + Input.location.lastData.horizontalAccuracy + " "
                                + Input.location.lastData.timestamp);
         }
-            this.targetText.text = Input.location.lastData.latitude.ToString();
+        //    this.targetText.text = Input.location.lastData.latitude.ToString();
+    var JsonStringList = new List<string>(){
+                            "{\"image\":\"https://i.pinimg.com/originals/66/15/85/66158514b3b1b1c9769f3bc0938fcd2c.jpg\",\"lat\":43.087655,\"lng\":141.349499,\"height\":1.0,}",
+                            "{\"image\":\"https://livedoor.blogimg.jp/mac_cafe/imgs/8/f/8f6435dd.jpg\",\"lat\":43.077655,\"lng\":141.349499,\"height\":1.0,}",
+                            "{\"image\":\"https://cdn-ak.f.st-hatena.com/images/fotolife/m/mochiyu7uta/20201004/20201004085738.jpg\",\"lat\":43.067655,\"lng\":141.349499,\"height\":1.0,}"
+                                };
+    
+    GenerateObjects(JsonStringList);
+        for (int i = 0; i < JsonStringList.Count; i++)
+        {
+            var jsonDic = Json.Deserialize(JsonStringList[i]) as Dictionary<string, object>;
+            var scale=100;
+            GameObject go = Instantiate(haiku, new Vector3(((float)Input.location.lastData.latitude- float.Parse(jsonDic["lat"].ToString()))*scale, 0,((float)Input.location.lastData.longitude- float.Parse(jsonDic["lng"].ToString()))*scale ), Quaternion.identity) as GameObject;
+            go.name = i.ToString();
+            StartCoroutine(GetTexture(jsonDic["image"].ToString(),go));
+        }
+
 
        
     }
