@@ -25,9 +25,6 @@ public class json2gen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Input.location.Start();
-        Input.compass.enabled = true;
-
 
 
     var JsonStringList = new List<string>(){
@@ -50,16 +47,51 @@ public class json2gen : MonoBehaviour
 
    private IEnumerator updateMap()
     {
-        // GPS が許可されていない
-        if (!Input.location.isEnabledByUser) yield break;
-        // サービスの状態が起動中になるまで待機
-        while (Input.location.status != LocationServiceStatus.Running) yield return null;
+    // 最初に、ユーザーがロケーションサービスを有効にしているかを確認する。無効の場合は終了する
+        if (!Input.location.isEnabledByUser)
+            yield break;
+
+        // 位置を取得する前にロケーションサービスを開始する
+        Input.location.Start();
+
+        // 初期化が終了するまで待つ
+        int maxWait = 20; // タイムアウトは20秒
+        while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
+        {
+            yield return new WaitForSeconds(1); // 1秒待つ
+            maxWait--;
+        }
+
+        // サービスの開始がタイムアウトしたら（20秒以内に起動しなかったら）、終了
+        if (maxWait < 1)
+        {
+            print("Timed out");
+            yield break;
+        }
+
+        // サービスの開始に失敗したら終了
+        if (Input.location.status == LocationServiceStatus.Failed)
+        {
+            print("Unable to determine device location");
+            yield break;
+        }
+        else
+        {
+            // アクセスの許可と位置情報の取得に成功
+            print("Location: " + Input.location.lastData.latitude + " "
+                               + Input.location.lastData.longitude + " "
+                               + Input.location.lastData.altitude + " "
+                               + Input.location.lastData.horizontalAccuracy + " "
+                               + Input.location.lastData.timestamp);
+        }
+            this.targetText.text = Input.location.lastData.latitude.ToString();
+
        
     }
     // Update is called once per frame
     void Update()
     {        
-    this.targetText.text = Input.location.lastData.ToString();
+    //this.targetText.text = Input.location.lastData.latitude.ToString();
 
 
         
