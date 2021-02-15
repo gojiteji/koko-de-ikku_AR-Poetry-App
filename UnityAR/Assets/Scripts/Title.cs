@@ -12,5 +12,8 @@ public class Title : MonoBehaviour
 {
     SceneManager.LoadScene("Scenes/miru");
 }
-
+    public void OnTitle()
+{
+    SceneManager.LoadScene("Scenes/title");
+}
 }
