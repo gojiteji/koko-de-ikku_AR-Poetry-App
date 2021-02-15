@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>9364130202-555sarj3ffnb7ciqbri1f72u2v9gaval.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.9364130202-555sarj3ffnb7ciqbri1f72u2v9gaval</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>9364130202-96b2ldl1bq0fp9ppqgeslvlbhve1ted6.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAipqLvY1sZLqp0FaLYcOZBFBhvONBNDCU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>9364130202</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.gojiteji</string>
+	<key>PROJECT_ID</key>
+	<string>one-phrase</string>
+	<key>STORAGE_BUCKET</key>
+	<string>one-phrase.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:9364130202:ios:fe6b29fb759c3ea4ed9223</string>
+</dict>
+</plist>

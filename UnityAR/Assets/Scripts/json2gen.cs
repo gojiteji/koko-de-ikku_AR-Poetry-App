@@ -5,6 +5,7 @@ using MiniJSON;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.Networking;
+using UnityEngine.UI; 
 
 [RequireComponent(typeof(ARRaycastManager))]
 public class json2gen : MonoBehaviour
@@ -14,6 +15,8 @@ public class json2gen : MonoBehaviour
     private ARRaycastManager raycastManager;
     private static List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
+    public Text targetText;
+
     private void Awake()
     {
         raycastManager = GetComponent<ARRaycastManager>();
@@ -22,25 +25,43 @@ public class json2gen : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Input.location.Start();
+        Input.compass.enabled = true;
+
+
+
     var JsonStringList = new List<string>(){
-                            "{\"image\":\"http://optipng.sourceforge.net/pngtech/img/lena.png\",\"lat\":43.087655,\"lng\":141.349499,\"height\":1.0,}",
+                            "{\"image\":\"https://i.pinimg.com/originals/66/15/85/66158514b3b1b1c9769f3bc0938fcd2c.jpg\",\"lat\":43.087655,\"lng\":141.349499,\"height\":1.0,}",
                             "{\"image\":\"https://livedoor.blogimg.jp/mac_cafe/imgs/8/f/8f6435dd.jpg\",\"lat\":43.077655,\"lng\":141.349499,\"height\":1.0,}",
                             "{\"image\":\"https://cdn-ak.f.st-hatena.com/images/fotolife/m/mochiyu7uta/20201004/20201004085738.jpg\",\"lat\":43.067655,\"lng\":141.349499,\"height\":1.0,}"
                                 };
     GenerateObjects(JsonStringList);
         for (int i = 0; i < JsonStringList.Count; i++)
         {
-            GameObject go = Instantiate(haiku, new Vector3(i, 0, 2), Quaternion.identity) as GameObject;
-            go.name = i.ToString();
             var jsonDic = Json.Deserialize(JsonStringList[i]) as Dictionary<string, object>;
+            var scale=100;
+            GameObject go = Instantiate(haiku, new Vector3(((float)43.078269999999996- float.Parse(jsonDic["lat"].ToString()))*scale, 0,((float)141.3511359- float.Parse(jsonDic["lng"].ToString()))*scale ), Quaternion.identity) as GameObject;
+            go.name = i.ToString();
             StartCoroutine(GetTexture(jsonDic["image"].ToString(),go));
         }
+    StartCoroutine(updateMap());
     
     }
 
+   private IEnumerator updateMap()
+    {
+        // GPS が許可されていない
+        if (!Input.location.isEnabledByUser) yield break;
+        // サービスの状態が起動中になるまで待機
+        while (Input.location.status != LocationServiceStatus.Running) yield return null;
+       
+    }
     // Update is called once per frame
     void Update()
-    {
+    {        
+    this.targetText.text = Input.location.lastData.ToString();
+
+
         
     }
 
@@ -68,5 +89,7 @@ public class json2gen : MonoBehaviour
             var jsonDic = Json.Deserialize(args[i]) as Dictionary<string, object>;
         }
     }
+
+    
     
 }
