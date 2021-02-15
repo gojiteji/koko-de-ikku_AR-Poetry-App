@@ -73,6 +73,8 @@ public class next : MonoBehaviour
         {
             objGet.transform.position += new Vector3(Screen.currentResolution.width / 3, 0, 0);
             this.targetText.text = ku[counter++];
+        }else{
+                SceneManager.LoadScene("Scenes/title");
         }
     }
 
