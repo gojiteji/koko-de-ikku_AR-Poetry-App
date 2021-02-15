@@ -33,7 +33,8 @@ public class next : MonoBehaviour
      private bool takeHiResShot = false;
  
      public static string ScreenShotName(int width, int height,int num) {
-         return Application.dataPath+"/Photos/"+num.ToString()+".png";
+         return Application.persistentDataPath +"/"+num.ToString()+".png";
+         //return Application.dataPath+"/Photos/"+num.ToString()+".png";
          //return string.Format("{0}/screenshots/screen_{1}x{2}_{3}.png", 
          //                     Application.dataPath, 
          //                     width, height, 
@@ -70,7 +71,7 @@ public class next : MonoBehaviour
         }
         if (counter < 2)
         {
-            objGet.transform.position += new Vector3(Screen.currentResolution.width / 4, 0, 0);
+            objGet.transform.position += new Vector3(Screen.currentResolution.width / 3, 0, 0);
             this.targetText.text = ku[counter++];
         }
     }
