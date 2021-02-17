@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
+
 public class next : MonoBehaviour
 {
     public GameObject objGet;
@@ -11,6 +13,9 @@ public class next : MonoBehaviour
     private int counter = 0;
     private string[] ku = new string[] { "中の句", "下の句", "完成" };
     GameObject[] tag1_Objects; //代入用のゲームオブジェクト配列を用意
+    private byte[] bytes1;
+    private byte[] bytes2;
+    private byte[] bytes3;
 
     // Start is called before the first frame update
     void Start()
@@ -57,9 +62,25 @@ public class next : MonoBehaviour
         GetComponent<Camera>().targetTexture = null;
         RenderTexture.active = null; // JC: added to avoid errors
         Destroy(rt);
-        byte[] bytes = screenShot.EncodeToPNG();
-        string filename = ScreenShotName(resWidth, resHeight,counter);
-        System.IO.File.WriteAllBytes(filename, bytes);
+        if(counter==0){
+            bytes1 = screenShot.EncodeToPNG();
+            string filename = ScreenShotName(resWidth, resHeight,counter);
+        }else  if(counter==1){
+            bytes2 = screenShot.EncodeToPNG();
+            //string filename = ScreenShotName(resWidth, resHeight,counter);
+            //System.IO.File.WriteAllBytes(filename, bytes2);
+        }else  if(counter==2){
+            bytes3 = screenShot.EncodeToPNG();
+            //string filename = ScreenShotName(resWidth, resHeight,counter);
+            //System.IO.File.WriteAllBytes(filename, bytes3);
+            //byte[] tmpbytes=new byte[bytes1.Length+bytes2.Length+bytes3.Length];
+            //bytes1.CopyTo(tmpbytes,0);
+            //bytes2.CopyTo(tmpbytes,bytes1.Length-10);
+            //bytes3.CopyTo(tmpbytes,bytes1.Length+bytes2.Length-10);
+            //System.IO.File.WriteAllBytes(Application.dataPath+"/Photos/"+"tmp.png", tmpbytes);
+            //Debug.Log("worknig");
+
+        }
 
 
 
@@ -74,9 +95,32 @@ public class next : MonoBehaviour
             objGet.transform.position += new Vector3(Screen.currentResolution.width / 3, 0, 0);
             this.targetText.text = ku[counter++];
         }else{
-                SceneManager.LoadScene("Scenes/title");
+            //image post
+            StartCoroutine(Upload());
+            SceneManager.LoadScene("Scenes/title");
         }
     }
+
+
+    IEnumerator Upload()
+    {
+        List<IMultipartFormSection> form = new List<IMultipartFormSection>();
+        form.Add( new MultipartFormDataSection("lat=43.0782624&lng=141.351128&userId=0vnYn8ti8NIFNyWYNc0m&height=1.0"));
+        form.Add( new MultipartFormFileSection("image1",bytes1,"image1.png", "image/png"));
+
+        UnityWebRequest www = UnityWebRequest.Post("https://asia-northeast1-one-phrase.cloudfunctions.net/api/new", form);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+        }
+    }
+
 
     public void OnClear()
     {
