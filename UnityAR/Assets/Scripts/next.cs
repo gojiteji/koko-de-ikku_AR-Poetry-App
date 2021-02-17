@@ -104,9 +104,52 @@ public class next : MonoBehaviour
 
     IEnumerator Upload()
     {
+        // 最初に、ユーザーがロケーションサービスを有効にしているかを確認する。無効の場合は終了する
+		if (!Input.location.isEnabledByUser)
+		{
+			print("location service is unabled");
+			yield break;
+		}
+
+		// 位置を取得する前にロケーションサービスを開始する
+		Input.location.Start();
+
+		// 初期化が終了するまで待つ
+		int maxWait = 20; // タイムアウトは20秒
+		while (Input.location.status == LocationServiceStatus.Initializing && maxWait > 0)
+		{
+			yield return new WaitForSeconds(1); // 1秒待つ
+			maxWait--;
+		}
+
+		// サービスの開始がタイムアウトしたら（20秒以内に起動しなかったら）、終了
+		if (maxWait < 1)
+		{
+			print("Timed out");
+			yield break;
+		}
+
+		// サービスの開始に失敗したら終了
+		if (Input.location.status == LocationServiceStatus.Failed)
+		{
+			print("Unable to determine device location");
+			yield break;
+		}
+		else
+		{
+		}
+
+
+
         List<IMultipartFormSection> form = new List<IMultipartFormSection>();
-        form.Add( new MultipartFormDataSection("lat=43.0782624&lng=141.351128&userId=0vnYn8ti8NIFNyWYNc0m&height=1.0"));
+        form.Add( new MultipartFormDataSection("lat",Input.location.lastData.latitude.ToString()));
+        form.Add( new MultipartFormDataSection("lng",Input.location.lastData.longitude.ToString()));
+        form.Add( new MultipartFormDataSection("userId","0vnYn8ti8NIFNyWYNc0m"));
+        form.Add( new MultipartFormDataSection("height","1.0"));
+
         form.Add( new MultipartFormFileSection("image1",bytes1,"image1.png", "image/png"));
+        form.Add( new MultipartFormFileSection("image2",bytes2,"image2.png", "image/png"));
+        form.Add( new MultipartFormFileSection("image3",bytes3,"image3.png", "image/png"));
 
         UnityWebRequest www = UnityWebRequest.Post("https://asia-northeast1-one-phrase.cloudfunctions.net/api/new", form);
         yield return www.SendWebRequest();
